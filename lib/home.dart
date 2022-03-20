@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project03/chat.dart';
+import 'package:project03/explore.dart';
+import 'package:project03/mycar.dart';
+import 'package:project03/more.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key, required this.title}) : super(key: key);
@@ -9,6 +13,20 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+  final List<Widget> screen = [
+    const ExploreScreen(title: ''),
+    const ChatScreen(title: ''),
+    const MyCarScreen(title: ''),
+    const MoreScreen(title: '')
+  ];
+
+  void _onTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -22,45 +40,32 @@ class MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.grey[50],
-        selectedItemColor: const Color(0xFF030404),
+        selectedItemColor: const Color(0xFF38597E),
         unselectedItemColor: Colors.grey,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        currentIndex: 0, //현재 선택된 Index
-        onTap: (int index) {
-          // setState(() {
-          //   _selectedIndex = index;
-          // });
-        },
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        currentIndex: _currentIndex, //현재 선택된 Index
+        onTap: _onTap,
         items: [
           BottomNavigationBarItem(
-            title: const Text('탐색하기',
-                style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
+            label: '탐색하기',
             icon: Icon(Icons.location_searching_rounded, size: width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: const Text('나와같이', style: TextStyle(fontSize: 12.0)),
+            label: '나와같이',
             icon: Icon(Icons.emoji_people_rounded, size: width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: const Text('내차관리', style: TextStyle(fontSize: 12.0)),
+            label: '내차관리',
             icon: Icon(Icons.local_taxi_rounded, size: width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: const Text('더보기', style: TextStyle(fontSize: 12.0)),
+            label: '더보기',
             icon: Icon(Icons.more_horiz_rounded, size: width * 0.08),
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('한동같이카',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-          ],
-        ),
-      ),
+      body: screen[_currentIndex],
     );
   }
 }
