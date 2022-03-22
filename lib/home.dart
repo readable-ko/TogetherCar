@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project03/chat.dart';
+import 'package:project03/chat/chat.dart';
 import 'package:project03/explore.dart';
 import 'package:project03/mycar.dart';
 import 'package:project03/more.dart';
@@ -30,7 +30,6 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
